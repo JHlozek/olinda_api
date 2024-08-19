@@ -1,0 +1,5 @@
+rdkit-pypi==2022.9.5
+typing-extensions==4.12.2
+numpy==1.23.5
+onnx==1.16.2
+onnxruntime==1.18.1
