@@ -1,26 +1,11 @@
-# olinda_model_runner
+# olinda_api
 
-### Load Olinda ONNX model
+This is a wrapper library for running onnx models produced in the Olinda pipeline with a Morgan Fingerprint featurizer.
 
-```
-import onnx
-import onnxruntime as rt
-onnx_model = onnx.load("/path/to/model.onnx")
-```
-
-### Setup ONNX runtime
+### Example usage
 
 ```
-onnx_rt = rt.InferenceSession(onnx_model.SerializeToString())
-output_names = [n.name for n in onnx_model.graph.output]
-
-```
-
-### Featurize SMILES and run prediction
-
-```
-from morgan_featurizer import MorganFeaturizer
-featurizer = MorganFeaturizer()
-fingerprint = featurizer.featurize(["CCC"])
-onnx_rt.run(output_names, {"input": fingerprint})
+import onnx_runner
+model = onnx_runner.onnx_runner("path/to/model.onnx")
+model.predict(["CCC", "CCO"])
 ```
