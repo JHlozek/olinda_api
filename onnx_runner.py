@@ -11,15 +11,19 @@ class onnx_runner(object):
         return onnx.load(model_path)
 
     def predict(self, smiles_list):
+        if type(smiles_list) == str:
+            smiles_list = [smiles_list]
         X = self._featurize(smiles_list)
         onnx_rt = rt.InferenceSession(self.onnx_model.SerializeToString())
         output_names = [n.name for n in self.onnx_model.graph.output]
 
         preds = []
         for i, smi in enumerate(smiles_list):
-            if len(X[i]) >0:
+            if X[i] is not None:
                 pred = onnx_rt.run(output_names, {"input": [X[i]]})
                 preds.append(pred[0][0][0]) #remove tensorflow nesting
+            else:
+                preds.append("")
         return preds
 
     def _featurize(self, smiles_list):

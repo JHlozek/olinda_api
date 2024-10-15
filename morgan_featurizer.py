@@ -30,29 +30,10 @@ class MorganFeaturizer(Featurizer):
         Returns:
             Any: featurized outputs
         """
-        mols = [Chem.MolFromSmiles(smi) for smi in batch if smi is not np.nan]
-        ecfps = self.ecfp_counts(mols)
-        return ecfps
-    
-    def ecfp_counts(self: "MorganFeaturizer", mols: List) -> List:
-        """Create ECFPs from batch of smiles.
-
-        Args:
-            mols (List): batch of molecules
-
-        Returns:
-            List: batch of ECFPs
-        """
-        fps = [
-            AllChem.GetMorganFingerprint(
-                mol, radius=3, useCounts=True, useFeatures=True
-            ) if mol is not None else None
-            for mol in mols
+        mols = [Chem.MolFromSmiles(smi) for smi in batch if smi is not None]
+        fps = [np.array(AllChem.GetMorganFingerprintAsBitVect(
+                mol, radius=3, nBits=1024))
+                if mol is not None else None
+                for mol in mols
         ]
-        nfp = np.zeros((len(fps), 1024), np.float32)
-        for i, fp in enumerate(fps):
-            if fp is not None:
-                for idx, v in fp.GetNonzeroElements().items():
-                    nidx = idx % 1024
-                    nfp[i, nidx] += int(v)
-        return nfp
+        return fps
