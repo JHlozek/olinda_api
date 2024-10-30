@@ -1,5 +1,5 @@
 rdkit-pypi
 typing-extensions==4.12.2
 numpy==1.23.5
-onnx==1.16.2
-onnxruntime==1.16.2
+onnx
+onnxruntime

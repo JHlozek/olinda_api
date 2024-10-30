@@ -11,7 +11,7 @@ setup(
     version="0.1.0",
     author="Jason Hlozek",
     author_email="jason.hlozek@uct.ac.za",
-    url="https://github.com/JHlozek/olinda_model_runner",
+    url="https://github.com/JHlozek/olinda_api",
     description="Minimal requirements to run Olinda models",
     long_description=long_description,
     long_description_content_type="text/markdown",
