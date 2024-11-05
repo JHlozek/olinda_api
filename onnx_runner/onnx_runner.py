@@ -1,6 +1,6 @@
 import onnx
 import onnxruntime as rt
-from morgan_featurizer import MorganFeaturizer
+from .morgan_featurizer import MorganFeaturizer
 
 class onnx_runner(object):
     def __init__(self, model_path, featurizer=MorganFeaturizer()):
